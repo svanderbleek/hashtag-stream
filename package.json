@@ -1,0 +1,14 @@
+{
+  "name": "hash-stream",
+  "description": "stream hashtagged items from social media",
+  "version": "0.0.0",
+  "dependencies": {
+    "hapi": "*",
+    "swig": "*",
+    "instagram-node": "*",
+    "twitter": "*"
+  },
+  "devDependencies": {
+    "lab": "*"
+  }
+}
