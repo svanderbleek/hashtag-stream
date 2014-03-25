@@ -14,5 +14,9 @@
   },
   "scripts": {
     "start": "app.js"
+  },
+  "subdomain": "tag-stream",
+  "engines": {
+    "node": "0.10.x"
   }
 }
