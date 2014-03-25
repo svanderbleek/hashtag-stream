@@ -1,6 +1,6 @@
 {
   "name": "hash-stream",
-  "description": "stream hashtagged items from social media",
+  "description": "stream tagged items from social media",
   "version": "0.0.0",
   "dependencies": {
     "hapi": "*",
