@@ -1,4 +1,4 @@
-# Hashtag Stream
+# Tag Stream
 
 ```bash
 node app.js
