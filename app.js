@@ -1,5 +1,6 @@
-var Hapi = require('hapi');
-var Swig = require('swig');
+var Hapi = require('hapi'),
+  tag = require('./handlers/tag'),
+  stream = require('./handlers/stream');
 
 server = new Hapi.Server('localhost', 8080, {
   views: {
@@ -10,32 +11,18 @@ server = new Hapi.Server('localhost', 8080, {
   }
 });
 
-var enterHashtag = function(request, response) {
-  response.view('hashtag');
-}
-
 server.route({
   method: 'GET',
   path: '/',
-  handler: enterHashtag
+  handler: tag.form
 });
-
-var streamHashtag = function(request, response) {
-  response.view('stream', request.query);
-}
-
-var hashtagValidate = {
-  query: {
-    hashtag: Hapi.types.string().required()
-  }
-}
 
 server.route({
   method: 'GET',
   path: '/stream',
   config: {
-    handler: streamHashtag,
-    validate: hashtagValidate
+    handler: stream.media,
+    validate: tag.validate
   }
 });
 

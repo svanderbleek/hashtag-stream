@@ -1,1 +1,6 @@
 <h1>#{{ hashtag }} Stream</h1>
+<ul>
+  {% for image in images %}
+  <li><img src="{{ image }}"></li>
+  {% endfor %}
+</ul>

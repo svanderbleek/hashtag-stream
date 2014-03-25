@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "dependencies": {
     "hapi": "*",
+    "instagram-node-lib": "*",
+    "nconf": "*",
     "swig": "*",
-    "instagram-node": "*",
     "twitter": "*"
   },
   "devDependencies": {
