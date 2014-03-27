@@ -1,5 +1,8 @@
 <h1>#{{ tag }} Stream</h1>
-<ul>
+<ul style="list-style: none">
+  {% for status in statuses %}
+  <li>{{ status }}</li>
+  {% endfor %}
   {% for image in images %}
   <li><img src="{{ image }}"></li>
   {% endfor %}
