@@ -26,4 +26,12 @@ server.route({
   }
 });
 
+server.route({
+  method: 'GET',
+  path: '/style.css',
+  handler: {
+    file: './css/style.css'
+  }
+});
+
 server.start();

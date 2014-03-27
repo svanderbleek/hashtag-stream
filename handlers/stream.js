@@ -1,69 +1,35 @@
-var config = require('nconf'),
-  instagram = require('instagram-node-lib'),
-  Twitter = require('twitter');
+var async = require('../util/async'),
+  instagram = require('../api/instagram'),
+  twitter = require('../api/twitter');
 
-config.env();
-
-instagram.set('client_id', config.get('INSTAGRAM_ID'));
-instagram.set('client_secret', config.get('INSTAGRAM_SECRET'));
-
-twitter = new Twitter({
-  consumer_key: config.get('TWITTER_KEY'),
-  consumer_secret: config.get('TWITTER_SECRET')
-});
-
-var extractImage = function(media) {
-  return media.images.low_resolution.url;
+var timeSort = function(media1, media2) {
+  return media1.time - media2.time;
 }
 
-var extractImages = function(data) {
-  return data.map(extractImage);
+var mergeByTime = function(images, statuses) {
+  return images.concat(statuses).sort(timeSort);
 }
 
-var pullImages = function(tag, complete) {
-  instagram.tags.recent({
-    name: tag,
-    complete: addToContextAndComplete('images', extractImages, complete)
-  })
-}
-
-var extractStatus = function(status) {
-  return status['text'];
-}
-
-var extractStatuses = function(data) {
-  return data['statuses'].map(extractStatus);
-}
-
-var pullStatuses = function(tag, complete) {
-  twitter.search('#' + tag, addToContextAndComplete('statuses', extractStatuses, complete));
-}
-
-var addToContextAndComplete = function(property, valueFunction, complete) {
-  return function() {
-    var args = Array.prototype.slice.call(arguments);
-    var value = valueFunction.apply(this, args);
-    complete(property, value);
+var responseRenderer = function(response) {
+  return function(context) {
+    context.media = mergeByTime(context.images, context.statuses);
+    console.log(context);
+    response.view('stream', context);
   }
 }
 
-var responseRenderer = function(response, context) {
-  return function(property, value) {
-    context[property] = value;
-    if(context.statuses && context.images) {
-      response.view('stream', context);
-    }
-  }
-}
-
-var buildResponse = function(tag, response) {
-  var context = {tag: tag};
-  var renderer = responseRenderer(response, context);
-  pullImages(tag, renderer);
-  pullStatuses(tag, renderer);
+var buildResponse = function(tag, complete) {
+  var statusesComplete = async.assignAndComplete('statuses', complete)
+  var imagesComplete = async.assignAndComplete('images', complete)
+  twitter.fetchStatuses(tag, statusesComplete);
+  instagram.fetchImages(tag, imagesComplete);
 }
 
 exports.media = function(request, response) {
   var tag = request.query.tag;
-  buildResponse(tag, response);
+  var context = {tag: tag};
+  var contextProperties = ['images', 'statuses'];
+  var renderer = responseRenderer(response);
+  var complete = async.contextPropertyRequirer(context, contextProperties, renderer);
+  buildResponse(tag, complete);
 }

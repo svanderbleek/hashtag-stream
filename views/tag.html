@@ -1,4 +1,9 @@
-<h1>Enter Tag</h1>
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="tag-input">
+<h1>Tag</h1>
 <form action="stream">
   <input type="text" name="tag" placeholder="tag to stream">
 </form>
+{% endblock %}
