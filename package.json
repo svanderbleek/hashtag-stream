@@ -1,7 +1,7 @@
 {
   "name": "tag-stream",
   "description": "stream tagged items from social media",
-  "version": "0.0.0-4",
+  "version": "0.0.0-5",
   "dependencies": {
     "hapi": "*",
     "instagram-node-lib": "*",
