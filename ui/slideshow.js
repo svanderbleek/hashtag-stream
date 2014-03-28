@@ -12,7 +12,8 @@ Slideshow.prototype.currentSlide = function() {
 }
 
 Slideshow.prototype.nextSlideIndex = function() {
-  return this.slideIndex - 1 || this.slides.length;
+  var nextIndex = this.slideIndex - 1;
+  return nextIndex >= 0  ? nextIndex : this.slides.length - 1;
 }
 
 Slideshow.prototype.nextSlide = function() {
