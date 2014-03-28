@@ -6,7 +6,6 @@ var Slideshow = function(slides) {
 
 Slideshow.prototype.slideClass = 'slide';
 
-
 Slideshow.prototype.currentSlide = function() {
   return this.slides[this.slideIndex];
 }
