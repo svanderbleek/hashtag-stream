@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<ul class='media-list'>
+  {% for object in media %}
+  <li class='media-item'>
+    {% if object.image %}<img src='{{ object.image }}'>{% endif %}
+    {% if object.text %}{{ object.text }}{% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

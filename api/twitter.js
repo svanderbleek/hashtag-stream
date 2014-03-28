@@ -26,7 +26,10 @@ var extractStatuses = function(response) {
 }
 
 exports.fetchStatuses = function(tag, complete) {
+  console.log('--FETCH--');
+  console.log(tag);
   twitter.search('#' + tag, function(response) {
+    console.log('--TWITTER--');
     var statuses = extractStatuses(response);
     complete(statuses);
   });

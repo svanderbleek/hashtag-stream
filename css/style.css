@@ -2,23 +2,13 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-.tag-input, .tag-stream {
+.tag-input, .media-stream, .media-slideshow {
   display: table;
   margin: 0 auto;
 }
 
 .tag-stream {
   padding: 0 8em;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  font-size: 2em;
-}
-
-ul > li {
-  margin-bottom: 1em;
 }
 
 input[type=text] {
@@ -30,4 +20,22 @@ input[type=text] {
 
 input[type=text]:focus {
   outline: none;
+}
+
+.media-list {
+  list-style: none;
+  padding: 0;
+  font-size: 2em;
+}
+
+.media-stream .media-item {
+  margin-bottom: 1em;
+}
+
+.media-slideshow .media-item {
+  display: none;
+}
+
+.media-slideshow .media-item.slide {
+  display: block;
 }
